@@ -49,12 +49,12 @@ public class BTHandler implements Runnable{
 		
 	}
 	
-	public void init(){
+	public synchronized void init(){
 		instances++;
 		Main.control.stateServerConnected();
 	}
 	
-	public void shutdown(){
+	public synchronized void shutdown(){
 		instances--;
 		if (instances<1){
 			Main.control.stateServerListening();
