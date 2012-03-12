@@ -80,6 +80,8 @@ public class BTHandler implements Runnable{
 	public synchronized void stop(){
 		listening=false;
 		try {
+			
+			is.close();
 			con.close();
 		} catch (IOException e) {
 			e.printStackTrace();
