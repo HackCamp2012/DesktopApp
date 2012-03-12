@@ -6,19 +6,30 @@ import java.io.OutputStream;
 
 import javax.microedition.io.StreamConnection;
 
+import de.uulm.presenter.io.IODevice;
+import de.uulm.presenter.io.IODeviceImpl;
+import de.uulm.presenter.io.IORemote;
+import de.uulm.presenter.io.IORemoteImpl;
+
 public class BTHandler implements Runnable{
-	private final StreamConnection con;
+	private StreamConnection con;
 	private boolean listening=true;
 	private InputStream is;
 	private OutputStream os;
-	public BTHandler(StreamConnection con) throws IOException {
+	public BTHandler(){
+		
+		
+	}
+	public void init(StreamConnection con) throws IOException {
 		this.con=con;
 		this.is=con.openInputStream();
 		this.os=con.openOutputStream();
-		this.send("hello client".getBytes());
+		
 	}
+	
 	@Override
 	public void run() {
+		init();
 		while (listening){
 			byte[] recv= new byte[1024];
         	try {
@@ -32,15 +43,32 @@ public class BTHandler implements Runnable{
 
 		}
 		
+		shutdown();
+		
+	}
+	
+	public void init(){
+		
+	}
+	
+	public void shutdown(){
+		
 	}
 	
 	public void recv(byte[] b){
-		String s = new String(b,0,b.length);
-    	System.out.println("recv: "+s);
-	}
-	public void send(byte[] b) throws IOException{
-        os.write(b);
-        os.flush();
+		System.out.println("rev1");
 	}
 
+	public void send(byte[] b){
+        try {
+			os.write(b);
+			os.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        
+	}
+
+	
+	
 }

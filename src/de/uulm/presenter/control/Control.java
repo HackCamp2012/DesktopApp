@@ -7,15 +7,23 @@ import java.util.Vector;
 
 import de.uulm.presenter.bluetooth.BTServer;
 import de.uulm.presenter.exceptions.ServerAlreadyStartedException;
+import de.uulm.presenter.io.IORemote;
+import de.uulm.presenter.io.IORemoteImpl;
+import de.uulm.presenter.logic.RemoteExecutor;
+import de.uulm.presenter.protocol.MessageProtocol;
+import de.uulm.presenter.protocol.RegisteredMessageHandler;
 import de.uulm.presenter.view.InfoMessageListener;
 
 
 public class Control extends Observable{
 	private final Vector<InfoMessageListener> infoMsgListeners;
 	private final BTServer server;
+	private final RemoteExecutor remoteEx;
 	public Control() {
 		infoMsgListeners = new Vector<InfoMessageListener>();
-		server = new BTServer();
+		server = new BTServer(RegisteredMessageHandler.class);
+		remoteEx=new RemoteExecutor();
+		IORemoteImpl.getRemoteDevice().addIORemote(remoteEx);
 	}
 	public void exit(){
 		System.exit(0);
@@ -53,4 +61,8 @@ public class Control extends Observable{
 			l.showErrorMessage(msg, title);
 		}
 	}
+	
+
+	
+
 }

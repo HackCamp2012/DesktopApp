@@ -24,6 +24,13 @@ public class BTServer implements RemoteHCIService, Runnable{
 	private ArrayBlockingQueue<Runnable> queue;
 	private ThreadPoolExecutor threadPool; 
 	private boolean alreadyStarted = false;
+
+	private Class handler;
+	public BTServer(Class handler) {
+		this.handler=handler;
+		
+	}
+	
 	public void init() throws IOException, ServerAlreadyStartedException{
 		if (alreadyStarted){
 			throw new ServerAlreadyStartedException();
@@ -53,10 +60,14 @@ public class BTServer implements RemoteHCIService, Runnable{
 			while (active){
 				try {
 					con = (StreamConnection) service.acceptAndOpen();
-					System.out.println("Connection Received");
-					threadPool.execute(new BTHandler(con));
+					BTHandler handler = (BTHandler)this.handler.newInstance();
+					handler.init(con);
+					threadPool.execute(handler);
 				} catch (IOException e) {
-					
+					e.printStackTrace();
+				} catch (InstantiationException e) {
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
 					e.printStackTrace();
 				}
 				
