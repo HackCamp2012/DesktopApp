@@ -1,12 +1,12 @@
 package de.uulm.presenter.bluetooth;
 
 import java.io.IOException;
-import java.io.InputStream;
+
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import javax.bluetooth.BluetoothStateException;
+
 import javax.bluetooth.DiscoveryAgent;
 import javax.bluetooth.LocalDevice;
 import javax.microedition.io.Connector;

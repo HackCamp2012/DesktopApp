@@ -20,6 +20,7 @@ public class Tray implements ActionListener, InfoMessageListener,Observer,Progra
 	
 	private final Image trayimggreen = Toolkit.getDefaultToolkit().getImage(Tray.class.getResource("../res/TrayIcongreen.png"));
 	private final Image trayimgred = Toolkit.getDefaultToolkit().getImage(Tray.class.getResource("../res/TrayIconred.png"));
+	private final Image trayimgyellow = Toolkit.getDefaultToolkit().getImage(Tray.class.getResource("../res/TrayIconyellow.png"));
 	private final TrayIcon trayIcon = new TrayIcon(trayimgred,"presenter");
 	private final Control control;
 	public Tray(Control c) throws AWTException, TrayIconNotSupportedError {
@@ -97,8 +98,7 @@ public class Tray implements ActionListener, InfoMessageListener,Observer,Progra
 
 	@Override
 	public void serverListening() {
-		// TODO Auto-generated method stub
-		trayIcon.setImage(trayimggreen);
+		trayIcon.setImage(trayimgyellow);
 	}
 
 

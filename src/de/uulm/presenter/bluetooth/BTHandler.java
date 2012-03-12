@@ -51,6 +51,7 @@ public class BTHandler implements Runnable{
 	
 	public void init(){
 		instances++;
+		Main.control.stateServerConnected();
 	}
 	
 	public void shutdown(){

@@ -22,12 +22,14 @@ public class RegisteredMessageHandler extends MessageProtocol implements IODevic
 	public void init() {
 		IORemoteImpl.getRemoteDevice().addIODevice(this);
 		this.addRecvListener(IORemoteImpl.getRemoteDevice());
+		super.init();
 	}
 	
 	@Override
 	public void shutdown() {
 		IORemoteImpl.getRemoteDevice().removeIODevice(this);
 		this.removeRecvListener(IORemoteImpl.getRemoteDevice());
+		super.shutdown();
 	}
 	
 	
