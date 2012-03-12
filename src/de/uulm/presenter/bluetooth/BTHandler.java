@@ -6,6 +6,8 @@ import java.io.OutputStream;
 
 import javax.microedition.io.StreamConnection;
 
+import com.intel.bluetooth.NotImplementedError;
+
 import de.uulm.presenter.control.Main;
 import de.uulm.presenter.io.IODevice;
 import de.uulm.presenter.io.IODeviceImpl;
@@ -13,8 +15,8 @@ import de.uulm.presenter.io.IORemote;
 import de.uulm.presenter.io.IORemoteImpl;
 
 public class BTHandler implements Runnable{
-	private StreamConnection con;
-	private boolean listening=true;
+	protected StreamConnection con;
+	protected boolean listening=true;
 	private InputStream is;
 	private OutputStream os;
 	private static int instances=0;
@@ -62,7 +64,7 @@ public class BTHandler implements Runnable{
 	}
 	
 	public void recv(byte[] b){
-		System.out.println("rev1");
+		throw new NotImplementedError();
 	}
 
 	public void send(byte[] b){
@@ -74,7 +76,15 @@ public class BTHandler implements Runnable{
 		}
         
 	}
-
+	
+	public synchronized void stop(){
+		listening=false;
+		try {
+			con.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	
 }

@@ -43,11 +43,24 @@ public class IORemoteImpl implements IORemote{
 	}
 	
 
+	public void kickDevices(){
+		for (IODevice d:iodev){
+			d.stop();
+		}
+	}
 
 	@Override
 	public void recv(Object o) {
 		for (IORemote r:iorem){
 			r.recv(o);
+		}
+		
+	}
+
+	@Override
+	public void init() {
+		for (IORemote r:iorem){
+			r.init();
 		}
 		
 	}

@@ -29,6 +29,11 @@ public class IODeviceImpl implements IODevice{
 		throw new NotImplementedError();
 		
 	}
+	@Override
+	public void stop() {
+		throw new NotImplementedError();
+		
+	}
 
 	
 }

@@ -19,6 +19,7 @@ public class Main {
 			control.addInfoMessageListener(icon);
 			control.addProgramStateListener(icon);
 			control.addObserver(icon);
+			control.listen();
 		} catch (AWTException e) {
 			JOptionPane.showMessageDialog(null,  "Could not apply TrayIcon","Error", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);			

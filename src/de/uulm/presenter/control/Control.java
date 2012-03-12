@@ -28,6 +28,7 @@ public class Control extends Observable{
 		server = new BTServer(RegisteredMessageHandler.class);
 		remoteEx=new RemoteExecutor();
 		IORemoteImpl.getRemoteDevice().addIORemote(remoteEx);
+		
 	}
 	public void exit(){
 		System.exit(0);
@@ -45,7 +46,7 @@ public class Control extends Observable{
 		try {
 			server.init();
 		} catch (IOException e) {
-			errorMessage("could not init server");
+			errorMessage("could not init Server.\nMaybe bluetooth is not enabled.");
 			e.printStackTrace();
 		} catch (ServerAlreadyStartedException e) {
 			errorMessage("Server already started");

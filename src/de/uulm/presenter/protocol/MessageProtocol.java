@@ -23,7 +23,7 @@ public class MessageProtocol extends BTHandler implements IODevice{
 		
 		for (IORemote r:remoteDevices){
 		
-			r.recv(new String(b));
+			r.recv(new String(b,0,b.length));
 		}
 	}
 	
@@ -45,6 +45,7 @@ public class MessageProtocol extends BTHandler implements IODevice{
 		String s = (String) o;
 		send(s.getBytes());		
 	}
+
 
 	
 }
