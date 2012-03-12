@@ -43,7 +43,6 @@ public class MessageProtocol extends BTHandler implements IODevice{
 	
 	public void sendObject(Object o) {
 		String s = (String) o;
-		System.out.println("no sending "+o);
 		send(s.getBytes());		
 	}
 

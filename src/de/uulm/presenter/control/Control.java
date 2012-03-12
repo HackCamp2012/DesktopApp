@@ -13,14 +13,18 @@ import de.uulm.presenter.logic.RemoteExecutor;
 import de.uulm.presenter.protocol.MessageProtocol;
 import de.uulm.presenter.protocol.RegisteredMessageHandler;
 import de.uulm.presenter.view.InfoMessageListener;
+import de.uulm.presenter.view.ProgramStateListener;
 
 
 public class Control extends Observable{
 	private final Vector<InfoMessageListener> infoMsgListeners;
+	private final Vector<ProgramStateListener> programStateListeners;
+	
 	private final BTServer server;
 	private final RemoteExecutor remoteEx;
 	public Control() {
 		infoMsgListeners = new Vector<InfoMessageListener>();
+		programStateListeners= new Vector<ProgramStateListener>();
 		server = new BTServer(RegisteredMessageHandler.class);
 		remoteEx=new RemoteExecutor();
 		IORemoteImpl.getRemoteDevice().addIORemote(remoteEx);
@@ -33,6 +37,10 @@ public class Control extends Observable{
 		infoMsgListeners.add(l);
 	}
 
+	public void addProgramStateListener(ProgramStateListener l){
+		programStateListeners.add(l);
+	}
+	
 	public void listen(){
 		try {
 			server.init();
@@ -45,7 +53,7 @@ public class Control extends Observable{
 		}
 		
 		server.listen();
-		infoMessage("server listening");
+		
 		
 	}
 	
@@ -63,6 +71,21 @@ public class Control extends Observable{
 	}
 	
 
+	public void stateServerListening(){
+		for (ProgramStateListener l:programStateListeners){
+			l.serverListening();
+		}
+	}
+	public void stateServerConnected(){
+		for (ProgramStateListener l:programStateListeners){
+			l.serverConnected();
+		}
+	}
+	public void stateServerStopped(){
+		for (ProgramStateListener l:programStateListeners){
+			l.serverStopped();
+		}
+	}
 	
 
 }

@@ -13,6 +13,7 @@ import javax.microedition.io.Connector;
 import javax.microedition.io.StreamConnection;
 import javax.microedition.io.StreamConnectionNotifier;
 
+import de.uulm.presenter.control.Main;
 import de.uulm.presenter.exceptions.ServerAlreadyStartedException;
 
 
@@ -58,6 +59,7 @@ public class BTServer implements RemoteHCIService, Runnable{
 		try {
 			service = (StreamConnectionNotifier) Connector.open( "btspp://localhost:" + SERVICEUUID + ";name="+NAME );
 			while (active){
+				Main.control.stateServerListening();
 				try {
 					con = (StreamConnection) service.acceptAndOpen();
 					BTHandler handler = (BTHandler)this.handler.newInstance();
@@ -72,6 +74,7 @@ public class BTServer implements RemoteHCIService, Runnable{
 				}
 				
 			}
+			Main.control.stateServerStopped();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

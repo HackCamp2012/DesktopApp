@@ -16,10 +16,11 @@ import de.uulm.presenter.control.Control;
 import de.uulm.presenter.control.Main;
 import de.uulm.presenter.exceptions.TrayIconNotSupportedError;
 
-public class Tray implements ActionListener, InfoMessageListener,Observer{
+public class Tray implements ActionListener, InfoMessageListener,Observer,ProgramStateListener{
 	
-	private final Image trayimg = Toolkit.getDefaultToolkit().getImage(Tray.class.getResource("../res/tray.jpg"));
-	private final TrayIcon trayIcon = new TrayIcon(trayimg,"presenter");
+	private final Image trayimggreen = Toolkit.getDefaultToolkit().getImage(Tray.class.getResource("../res/TrayIcongreen.png"));
+	private final Image trayimgred = Toolkit.getDefaultToolkit().getImage(Tray.class.getResource("../res/TrayIconred.png"));
+	private final TrayIcon trayIcon = new TrayIcon(trayimgred,"presenter");
 	private final Control control;
 	public Tray(Control c) throws AWTException, TrayIconNotSupportedError {
 		this.control=c;
@@ -92,5 +93,28 @@ public class Tray implements ActionListener, InfoMessageListener,Observer{
 		
 		
 	}
+
+
+	@Override
+	public void serverListening() {
+		// TODO Auto-generated method stub
+		trayIcon.setImage(trayimggreen);
+	}
+
+
+	@Override
+	public void serverStopped() {
+		trayIcon.setImage(trayimgred);
+		
+	}
+
+
+	@Override
+	public void serverConnected() {
+		trayIcon.setImage(trayimggreen);
+		
+	}
+	
+	
 }
 

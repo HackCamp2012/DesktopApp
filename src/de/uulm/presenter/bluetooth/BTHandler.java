@@ -6,6 +6,7 @@ import java.io.OutputStream;
 
 import javax.microedition.io.StreamConnection;
 
+import de.uulm.presenter.control.Main;
 import de.uulm.presenter.io.IODevice;
 import de.uulm.presenter.io.IODeviceImpl;
 import de.uulm.presenter.io.IORemote;
@@ -16,6 +17,7 @@ public class BTHandler implements Runnable{
 	private boolean listening=true;
 	private InputStream is;
 	private OutputStream os;
+	private static int instances=0;
 	public BTHandler(){
 		
 		
@@ -48,11 +50,14 @@ public class BTHandler implements Runnable{
 	}
 	
 	public void init(){
-		
+		instances++;
 	}
 	
 	public void shutdown(){
-		
+		instances--;
+		if (instances<1){
+			Main.control.stateServerListening();
+		}
 	}
 	
 	public void recv(byte[] b){

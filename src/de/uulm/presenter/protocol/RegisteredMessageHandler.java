@@ -22,7 +22,6 @@ public class RegisteredMessageHandler extends MessageProtocol implements IODevic
 	public void init() {
 		IORemoteImpl.getRemoteDevice().addIODevice(this);
 		this.addRecvListener(IORemoteImpl.getRemoteDevice());
-		//send("hello server");
 	}
 	
 	@Override
