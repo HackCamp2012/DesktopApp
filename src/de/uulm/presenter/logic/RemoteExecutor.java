@@ -1,26 +1,26 @@
 package de.uulm.presenter.logic;
 
-import de.uulm.presenter.io.IORemote;
+import org.json.simple.JSONObject;
 
 
 
 
-public class RemoteExecutor implements IORemote{
+public class RemoteExecutor extends RemoteProtocol{
 	
-	
-	
-	
-
 	@Override
-	public void aMessage(Object o) {
-		System.out.println(o);
+	public void keyEvent(String event, long keyCode) {
+		System.out.println("key");
+		System.out.println(" "+keyCode);
+		System.out.println(" "+event);
+	
 	}
-
+	
 	@Override
-	public void init() {
-		
+	public void mouseEvent(String action, double x, double y) {
+		System.out.println("mouse Event");
+		System.out.println(" "+x);
+		System.out.println(" "+y);
 	}
-
 	
 
 	

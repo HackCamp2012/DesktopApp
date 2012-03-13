@@ -71,6 +71,7 @@ public class Tray implements ActionListener, InfoMessageListener,Observer,Progra
 	@Override
 	public void showInfoMessage(String msg, String title){
 		trayIcon.displayMessage(title, msg, TrayIcon.MessageType.INFO);
+		
 	}
 	
 	@Override
