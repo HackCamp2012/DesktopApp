@@ -10,8 +10,8 @@ import de.uulm.presenter.bluetooth.BTHandler;
 import de.uulm.presenter.io.IODevice;
 import de.uulm.presenter.io.IORemote;
 
-public class MessageProtocol extends BTHandler implements IODevice{
-	private Vector<IORemote> remoteDevices = new Vector<IORemote>();
+public abstract class MessageProtocol extends BTHandler implements IODevice{
+	protected Vector<IORemote> remoteDevices = new Vector<IORemote>();
 	
 	public MessageProtocol() throws IOException {
 		
@@ -20,21 +20,21 @@ public class MessageProtocol extends BTHandler implements IODevice{
 	}
 	@Override
 	public void recv(byte[] b,int cnt) {
+		this.aMessage(new String(b,0,cnt));
+	}
+	
+	public void aMessage(Object o){
 		
-		for (IORemote r:remoteDevices){
-		
-			r.recv(new String(b,0,cnt));
-		}
 	}
 	
 	@Override
-	public void addRecvListener(IORemote r) {
+	public void addMessageListener(IORemote r) {
 		remoteDevices.add(r);
 		
 	}
 
 	@Override
-	public void removeRecvListener(IORemote r) {
+	public void removeMessageListener(IORemote r) {
 		remoteDevices.remove(r);
 		
 	}

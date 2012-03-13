@@ -12,13 +12,13 @@ public class IODeviceImpl implements IODevice{
 		remoteDevices = new Vector<IORemote>();
 	}
 	@Override
-	public void addRecvListener(IORemote r) {
+	public void addMessageListener(IORemote r) {
 		remoteDevices.add(r);
 		
 	}
 
 	@Override
-	public void removeRecvListener(IORemote r) {
+	public void removeMessageListener(IORemote r) {
 		remoteDevices.remove(r);
 		
 	}

@@ -35,7 +35,7 @@ public class Tray implements ActionListener, InfoMessageListener,Observer,Progra
 			
 			MenuItem about = new MenuItem("about");
 			MenuItem exit = new MenuItem("exit");
-			MenuItem listen = new MenuItem("listen");
+			//MenuItem listen = new MenuItem("listen");
 			
 			about.addActionListener(this);
 			about.setActionCommand("tray_about");
@@ -43,12 +43,12 @@ public class Tray implements ActionListener, InfoMessageListener,Observer,Progra
 			exit.addActionListener(this);
 			exit.setActionCommand("tray_exit");
 			
-			listen.addActionListener(this);
-			listen.setActionCommand("tray_listen");
+			//listen.addActionListener(this);
+			//listen.setActionCommand("tray_listen");
 			
 			menu.add(about);
 			menu.add(exit);
-			menu.add(listen);
+			//menu.add(listen);
 			
 			trayIcon.setPopupMenu(menu);
 			

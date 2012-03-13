@@ -49,13 +49,7 @@ public class IORemoteImpl implements IORemote{
 		}
 	}
 
-	@Override
-	public void recv(Object o) {
-		for (IORemote r:iorem){
-			r.recv(o);
-		}
-		
-	}
+	
 
 	@Override
 	public void init() {
@@ -63,6 +57,13 @@ public class IORemoteImpl implements IORemote{
 			r.init();
 		}
 		
+	}
+
+	@Override
+	public void aMessage(Object o) {
+		for (IORemote r:iorem){
+			r.aMessage(o);
+		}
 	}
 	
 	

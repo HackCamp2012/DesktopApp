@@ -21,7 +21,7 @@ public class RegisteredMessageHandler extends MessageProtocol implements IODevic
 	@Override
 	public synchronized void init() {
 		IORemoteImpl.getRemoteDevice().addIODevice(this);
-		this.addRecvListener(IORemoteImpl.getRemoteDevice());
+		this.addMessageListener(IORemoteImpl.getRemoteDevice());
 		IORemoteImpl.getRemoteDevice().init();
 		super.init();
 	}
@@ -29,7 +29,7 @@ public class RegisteredMessageHandler extends MessageProtocol implements IODevic
 	@Override
 	public synchronized void shutdown() {
 		IORemoteImpl.getRemoteDevice().removeIODevice(this);
-		this.removeRecvListener(IORemoteImpl.getRemoteDevice());
+		this.removeMessageListener(IORemoteImpl.getRemoteDevice());
 		super.shutdown();
 	}
 	

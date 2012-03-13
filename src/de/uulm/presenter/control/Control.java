@@ -10,6 +10,7 @@ import de.uulm.presenter.exceptions.ServerAlreadyStartedException;
 import de.uulm.presenter.io.IORemote;
 import de.uulm.presenter.io.IORemoteImpl;
 import de.uulm.presenter.logic.RemoteExecutor;
+import de.uulm.presenter.protocol.AuthenticationProtocolExtension;
 import de.uulm.presenter.protocol.MessageProtocol;
 import de.uulm.presenter.protocol.RegisteredMessageHandler;
 import de.uulm.presenter.view.InfoMessageListener;
@@ -25,7 +26,7 @@ public class Control extends Observable{
 	public Control() {
 		infoMsgListeners = new Vector<InfoMessageListener>();
 		programStateListeners= new Vector<ProgramStateListener>();
-		server = new BTServer(RegisteredMessageHandler.class);
+		server = new BTServer(AuthenticationProtocolExtension.class);
 		remoteEx=new RemoteExecutor();
 		IORemoteImpl.getRemoteDevice().addIORemote(remoteEx);
 		
