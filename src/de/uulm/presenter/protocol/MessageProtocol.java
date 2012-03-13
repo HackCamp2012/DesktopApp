@@ -19,11 +19,11 @@ public class MessageProtocol extends BTHandler implements IODevice{
 		
 	}
 	@Override
-	public void recv(byte[] b) {
+	public void recv(byte[] b,int cnt) {
 		
 		for (IORemote r:remoteDevices){
 		
-			r.recv(new String(b,0,b.length));
+			r.recv(new String(b,0,cnt));
 		}
 	}
 	

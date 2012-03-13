@@ -37,10 +37,11 @@ public class BTHandler implements Runnable{
 		while (listening){
 			byte[] recv= new byte[1024];
         	try {
-				if (is.read(recv)==-1){
+        		int cnt = is.read(recv); 
+				if (cnt==-1){
 					break;
 				}
-			this.recv(recv);
+			this.recv(recv,cnt);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -63,7 +64,7 @@ public class BTHandler implements Runnable{
 		}
 	}
 	
-	public void recv(byte[] b){
+	public void recv(byte[] b,int len){
 		throw new NotImplementedError();
 	}
 
