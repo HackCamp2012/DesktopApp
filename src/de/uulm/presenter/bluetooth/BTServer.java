@@ -56,6 +56,7 @@ public class BTServer implements RemoteHCIService, Runnable{
 	@Override
 	public void run() {
 		StreamConnectionNotifier service;
+		
 		try {
 			service = (StreamConnectionNotifier) Connector.open( "btspp://localhost:" + SERVICEUUID + ";name="+NAME );
 			Main.control.stateServerListening();
@@ -65,7 +66,9 @@ public class BTServer implements RemoteHCIService, Runnable{
 					con = (StreamConnection) service.acceptAndOpen();
 					BTHandler handler = (BTHandler)this.handler.newInstance();
 					handler.init(con);
-					threadPool.execute(handler);
+					//threadPool.execute(handler); //for multiple connection handles
+					handler.run();
+					
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (InstantiationException e) {
