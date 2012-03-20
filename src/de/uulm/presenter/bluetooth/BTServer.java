@@ -15,6 +15,8 @@ import javax.microedition.io.StreamConnectionNotifier;
 
 import de.uulm.presenter.control.Main;
 import de.uulm.presenter.exceptions.ServerAlreadyStartedException;
+import de.uulm.presenter.io.IORemoteImpl;
+import de.uulm.presenter.protocol.MessageProtocol;
 
 
 public class BTServer implements RemoteHCIService, Runnable{
@@ -64,7 +66,7 @@ public class BTServer implements RemoteHCIService, Runnable{
 				
 				try {
 					con = (StreamConnection) service.acceptAndOpen();
-					BTHandler handler = (BTHandler)this.handler.newInstance();
+					MessageProtocol handler = (MessageProtocol)this.handler.newInstance();
 					handler.init(con);
 					//threadPool.execute(handler); //for multiple connection handles
 					handler.run();

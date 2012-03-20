@@ -27,9 +27,20 @@ public class IORemoteImpl implements IORemote{
 		iodev.remove(c);
 		
 	}
-	
+//	public void addRegisterMessageListener(IODevice iodev){
+//		for (IORemote r:iorem){
+//			iodev.addMessageListener(r);			
+//		}
+//
+//	}
+//	public void unregisterMessageListener(IODevice iodev){
+//		for (IORemote r:iorem){
+//			iodev.removeMessageListener(r);			
+//		}
+//	}
 	public void addIORemote(IORemote c){
 		iorem.add(c);
+		
 	}
 	public void removeIORemote(IORemote c){
 		iorem.remove(c);

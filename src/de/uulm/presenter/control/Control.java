@@ -30,6 +30,7 @@ public class Control extends Observable{
 		remoteEx=new RemoteExecutor();
 		IORemoteImpl.getRemoteDevice().addIORemote(remoteEx);
 		
+		
 	}
 	public void exit(){
 		System.exit(0);

@@ -17,6 +17,7 @@ public class RemoteProtocol implements IORemote,RemoteProtocolKeys{
 	}
 	@Override
 	public void aMessage(Object o) {
+		System.out.println("o: "+o);
 		
 		try {
 			JSONObject json = (JSONObject)parser.parse((String)o);

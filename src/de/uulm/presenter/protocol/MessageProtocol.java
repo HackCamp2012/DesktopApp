@@ -57,6 +57,7 @@ public  class MessageProtocol extends BTHandler implements IODevice{
 		
 	}
 
+	
 
 	
 	public void sendObject(Object o) {

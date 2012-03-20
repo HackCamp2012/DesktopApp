@@ -17,6 +17,7 @@ public class RemoteExecutor extends RemoteProtocol{
 	public RemoteExecutor() {
 		try {
 			robot = new Robot();
+			robot.setAutoDelay(100);
 			screenW = Toolkit.getDefaultToolkit().getScreenSize().width;
 			screenH = Toolkit.getDefaultToolkit().getScreenSize().height;
 		} catch (AWTException e) {
@@ -26,13 +27,13 @@ public class RemoteExecutor extends RemoteProtocol{
 	
 	@Override
 	public void keyEvent(String event, long keyCode) {
-		
-		if (event.equalsIgnoreCase(UP)){
+		if (event.equalsIgnoreCase(RemoteProtocolKeys.PRESS)){
 			robot.keyPress((int)keyCode);
 			robot.keyRelease((int)keyCode);
+			
 		}else if (event.equalsIgnoreCase(DOWN)){
 			robot.keyPress((int)keyCode);
-		}else{
+		}else if (event.equalsIgnoreCase(UP)){
 			robot.keyRelease((int)keyCode);
 		}
 	

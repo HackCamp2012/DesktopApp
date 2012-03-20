@@ -5,28 +5,34 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 
 import de.uulm.presenter.auth.Authentication;
+import de.uulm.presenter.control.Main;
 import de.uulm.presenter.io.IODevice;
 import de.uulm.presenter.io.IORemote;
 import de.uulm.presenter.io.IORemoteImpl;
+import de.uulm.presenter.view.AuthPrompt;
 
 public class AuthenticationProtocolExtension extends RegisteredMessageHandler implements IODevice{
 
 	private ProtocolState state;
 	private int challenge=0;
+	private final AuthPrompt authPrompt;
+	
 	public AuthenticationProtocolExtension() throws IOException {
 		state = ProtocolState.UNAUTHORIZED;
+		authPrompt = new AuthPrompt();
 	}
 	
 	@Override
 	public void aMessage(Object o) {
+		//System.out.println("raw message: "+(String) o);
 		if (state==ProtocolState.UNAUTHORIZED){
 			if ((challenge+"").equals((String)o)){
-			//if (("Hello server").equals((String)o)){
 				state=ProtocolState.AUTHORIZED;
-				System.out.println("auth token accepted");
+				authPrompt.authSuccess();
+				Main.control.stateServerConnected();
 			}else{
 				IORemoteImpl.getRemoteDevice().kickDevices();
-				System.out.println("auth token rejected");
+				authPrompt.authFailed();
 			}
 		}else{
 			for (IORemote r:remoteDevices){
@@ -40,10 +46,14 @@ public class AuthenticationProtocolExtension extends RegisteredMessageHandler im
 	public void init() {
 		super.init();
 		challenge=Authentication.generateChallenge();
-		JOptionPane.showMessageDialog(null, "Type: "+challenge+" in your phone to confirm security authentication", "Presenter BT guard", JOptionPane.INFORMATION_MESSAGE);
-		
+		//JOptionPane.showMessageDialog(null, "Type: "+challenge+" in your phone to confirm security authentication", "Presenter BT guard", JOptionPane.INFORMATION_MESSAGE);
+		authPrompt.showAuth(challenge);
 	}
-
+	@Override
+	public synchronized void shutdown() {
+		authPrompt.connectionLost();
+		super.shutdown();
+	}
 }
 
 enum ProtocolState{
