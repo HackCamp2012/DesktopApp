@@ -149,7 +149,7 @@ public class Tray implements ActionListener, InfoMessageListener,Observer,Progra
 
 	@Override
 	public void hyperlinkUpdate(HyperlinkEvent e) {
-		System.out.println(e);
+		
 		try {
 			Desktop.getDesktop().browse(e.getURL().toURI());
 		} catch (IOException e1) {

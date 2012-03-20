@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import javax.bluetooth.ServiceRecord;
 import javax.microedition.io.StreamConnection;
 
 import com.intel.bluetooth.NotImplementedError;
@@ -20,6 +21,7 @@ public class BTHandler implements Runnable{
 	private InputStream is;
 	private OutputStream os;
 	private static int instances=0;
+	
 	public BTHandler(){
 		
 		
@@ -28,6 +30,8 @@ public class BTHandler implements Runnable{
 		this.con=con;
 		this.is=con.openInputStream();
 		this.os=con.openOutputStream();
+		
+ 		
 		
 	}
 	

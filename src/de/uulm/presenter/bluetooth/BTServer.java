@@ -61,6 +61,7 @@ public class BTServer implements RemoteHCIService, Runnable{
 			
 			try {
 				service = (StreamConnectionNotifier) Connector.open( "btspp://localhost:" + SERVICEUUID + ";name="+NAME );
+				
 				Main.control.stateServerListening();
 				
 				while(active){
