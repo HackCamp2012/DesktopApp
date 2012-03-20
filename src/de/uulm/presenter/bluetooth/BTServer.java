@@ -69,7 +69,10 @@ public class BTServer implements RemoteHCIService, Runnable{
 						MessageProtocol handler = (MessageProtocol)this.handler.newInstance();
 						handler.init(con);
 						//threadPool.execute(handler); //for multiple connection handles
+						//handler.run();
+
 						handler.run();
+						
 						
 					} catch (IOException e) {
 						e.printStackTrace();
