@@ -50,8 +50,7 @@ public class MessagePrompt extends JFrame implements ActionListener{
 		addWindowListener(new WindowAdapter() {
 			
 			public void windowClosing(WindowEvent e) {
-				System.out.println("exit");
-				System.exit(0);
+				MessagePrompt.getInstance().setVisible(false);
 			};
 				
 			
@@ -92,7 +91,7 @@ public class MessagePrompt extends JFrame implements ActionListener{
 	
 	public void showAuth(int auth){
 		String authS= ""+auth;
-		String formattedAuthString = authS.substring(0,2)+" "+authS.substring(2,5)+" "+authS.substring(5);
+		String formattedAuthString = authS.substring(0,2)+" "+authS.substring(2,5);//+" "+authS.substring(5);
 		authString.setText(formattedAuthString);
 		authString.setVisible(true);
 		setVisible(true);

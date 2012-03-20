@@ -38,8 +38,8 @@ public class BTServer implements RemoteHCIService, Runnable{
 		if (alreadyStarted){
 			throw new ServerAlreadyStartedException();
 		}
-		queue = new ArrayBlockingQueue<Runnable>(10);
-		threadPool = new ThreadPoolExecutor(1,1,10,TimeUnit.SECONDS,queue);
+		//queue = new ArrayBlockingQueue<Runnable>(10);
+		//threadPool = new ThreadPoolExecutor(1,1,10,TimeUnit.SECONDS,queue);
 		LocalDevice.getLocalDevice().setDiscoverable(DiscoveryAgent.GIAC);
 		alreadyStarted=true;
 		
