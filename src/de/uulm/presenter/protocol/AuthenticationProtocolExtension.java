@@ -9,17 +9,17 @@ import de.uulm.presenter.control.Main;
 import de.uulm.presenter.io.IODevice;
 import de.uulm.presenter.io.IORemote;
 import de.uulm.presenter.io.IORemoteImpl;
-import de.uulm.presenter.view.AuthPrompt;
+import de.uulm.presenter.view.MessagePrompt;
 
 public class AuthenticationProtocolExtension extends RegisteredMessageHandler implements IODevice{
 
 	private ProtocolState state;
 	private int challenge=0;
-	private final AuthPrompt authPrompt;
+	private final MessagePrompt authPrompt;
 	
 	public AuthenticationProtocolExtension() throws IOException {
 		state = ProtocolState.UNAUTHORIZED;
-		authPrompt = new AuthPrompt();
+		authPrompt = MessagePrompt.getInstance();
 	}
 	
 	@Override

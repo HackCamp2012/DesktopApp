@@ -58,32 +58,33 @@ public class BTServer implements RemoteHCIService, Runnable{
 	@Override
 	public void run() {
 		StreamConnectionNotifier service;
-		
-		try {
-			service = (StreamConnectionNotifier) Connector.open( "btspp://localhost:" + SERVICEUUID + ";name="+NAME );
-			Main.control.stateServerListening();
-			while (active){
+			
+			try {
+				service = (StreamConnectionNotifier) Connector.open( "btspp://localhost:" + SERVICEUUID + ";name="+NAME );
+				Main.control.stateServerListening();
 				
-				try {
-					con = (StreamConnection) service.acceptAndOpen();
-					MessageProtocol handler = (MessageProtocol)this.handler.newInstance();
-					handler.init(con);
-					//threadPool.execute(handler); //for multiple connection handles
-					handler.run();
+				while(active){
+					try {
+						con = (StreamConnection) service.acceptAndOpen();
+						MessageProtocol handler = (MessageProtocol)this.handler.newInstance();
+						handler.init(con);
+						//threadPool.execute(handler); //for multiple connection handles
+						handler.run();
+						
+					} catch (IOException e) {
+						e.printStackTrace();
+					} catch (InstantiationException e) {
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					}
 					
-				} catch (IOException e) {
-					e.printStackTrace();
-				} catch (InstantiationException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
 				}
-				
+				Main.control.stateServerStopped();
+			} catch (IOException e1) {
+				e1.printStackTrace();
 			}
-			Main.control.stateServerStopped();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+		
 
 	}
 	

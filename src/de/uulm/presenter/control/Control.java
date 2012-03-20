@@ -18,6 +18,9 @@ import de.uulm.presenter.view.ProgramStateListener;
 
 
 public class Control extends Observable{
+	public static final String SHOWRESTART = "0";
+	public static final String HIDERESTART = "1";
+	
 	private final Vector<InfoMessageListener> infoMsgListeners;
 	private final Vector<ProgramStateListener> programStateListeners;
 	
@@ -46,16 +49,22 @@ public class Control extends Observable{
 	
 	public void listen(){
 		try {
+			setChanged();
+			notifyObservers(HIDERESTART);
 			server.init();
+			server.listen();
 		} catch (IOException e) {
-			errorMessage("could not init Server.\nMaybe bluetooth is not enabled.");
-			e.printStackTrace();
+			setChanged();
+			notifyObservers(SHOWRESTART);
+			errorMessage("Could not init Server. Maybe bluetooth is not enabled. Enable Bluetooth and press restart");
+			
+			//e.printStackTrace();
 		} catch (ServerAlreadyStartedException e) {
 			errorMessage("Server already started");
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		
-		server.listen();
+		
 		
 		
 	}
