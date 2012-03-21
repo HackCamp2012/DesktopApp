@@ -13,6 +13,7 @@ import javax.microedition.io.Connector;
 import javax.microedition.io.StreamConnection;
 import javax.microedition.io.StreamConnectionNotifier;
 
+import de.uulm.presenter.control.Control;
 import de.uulm.presenter.control.Main;
 import de.uulm.presenter.exceptions.ServerAlreadyStartedException;
 import de.uulm.presenter.io.IORemoteImpl;
@@ -71,8 +72,9 @@ public class BTServer implements RemoteHCIService, Runnable{
 						handler.init(con);
 						//threadPool.execute(handler); //for multiple connection handles
 						//handler.run();
-
+						
 						handler.run();
+						
 						
 						
 					} catch (IOException e) {
@@ -86,7 +88,8 @@ public class BTServer implements RemoteHCIService, Runnable{
 				}
 				Main.control.stateServerStopped();
 			} catch (IOException e1) {
-				e1.printStackTrace();
+				Main.control.bluetoothError();
+				return;
 			}
 		
 

@@ -43,6 +43,7 @@ public class BTHandler implements Runnable{
         	try {
         		int cnt = is.read(recv); 
 				if (cnt==-1){
+					listening=false;
 					break;
 				}
 			this.recv(recv,cnt);

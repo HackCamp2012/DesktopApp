@@ -99,5 +99,9 @@ public class Control extends Observable{
 		}
 	}
 	
+	public void bluetoothError(){
+		errorMessage("The Bluetooth Stack seams corrupt, a reboot may be neccessary");
+	}
+	
 
 }
