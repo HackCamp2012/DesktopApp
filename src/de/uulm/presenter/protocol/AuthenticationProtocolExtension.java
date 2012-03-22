@@ -55,6 +55,7 @@ public class AuthenticationProtocolExtension extends RegisteredMessageHandler im
 		if (i == JOptionPane.YES_OPTION){
 			state=ProtocolState.AUTHORIZED;
 			RemoteDevice.authOK();
+			Main.control.stateServerConnected();
 		}else{
 			RemoteDevice.authReject();
 			IORemoteImpl.getRemoteDevice().kickDevices();
