@@ -83,7 +83,7 @@ public class Tray implements ActionListener, InfoMessageListener,Observer,Progra
 			control.listen();
 		}else if (event.getActionCommand().equals("tray_about")){
 			
-			JOptionPane.showMessageDialog(null,aboutPane, "Presenter - About", JOptionPane.PLAIN_MESSAGE, null);
+			JOptionPane.showMessageDialog(null,aboutPane, "PresenterApp - About", JOptionPane.PLAIN_MESSAGE, null);
 		}
 		
 	}

@@ -51,8 +51,9 @@ public class AuthenticationProtocolExtension extends RegisteredMessageHandler im
 		//JOptionPane.showMessageDialog(null, "Type: "+challenge+" in your phone to confirm security authentication", "Presenter BT guard", JOptionPane.INFORMATION_MESSAGE);
 		//authPrompt.showAuth(challenge);
 		
-		int i = JOptionPane.showConfirmDialog(null, "<html><p>An external device is trying to connect to your phone.<br>Allow this connection? </p></html>", "Connection attempt", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-		if (i == JOptionPane.YES_OPTION){
+		
+		boolean b = MessagePrompt.getInstance().showAskMessage("An external device is trying to connect to your phone.", "Connection attempt","allow","deny");
+		if (b){
 			state=ProtocolState.AUTHORIZED;
 			RemoteDevice.authOK();
 			Main.control.stateServerConnected();
@@ -65,7 +66,7 @@ public class AuthenticationProtocolExtension extends RegisteredMessageHandler im
 	public synchronized void shutdown() {
 		//authPrompt.connectionLost();
 		if (state==ProtocolState.AUTHORIZED){
-			JOptionPane.showMessageDialog(null, "Connection lost", "Connection error", JOptionPane.ERROR_MESSAGE);
+			MessagePrompt.getInstance().showConfirmMessage("Connection lost", "Connection");
 		}
 		super.shutdown();
 	}
