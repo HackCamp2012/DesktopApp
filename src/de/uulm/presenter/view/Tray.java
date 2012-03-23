@@ -27,9 +27,9 @@ import de.uulm.presenter.exceptions.TrayIconNotSupportedError;
 
 public class Tray implements ActionListener, InfoMessageListener,Observer,ProgramStateListener, HyperlinkListener{
 	
-	private final Image trayimggreen = Toolkit.getDefaultToolkit().getImage(Tray.class.getResource("../res/TrayIcongreen.png"));
-	private final Image trayimgred = Toolkit.getDefaultToolkit().getImage(Tray.class.getResource("../res/TrayIconred.png"));
-	private final Image trayimgyellow = Toolkit.getDefaultToolkit().getImage(Tray.class.getResource("../res/TrayIconyellow.png"));
+	private final Image trayimggreen = Toolkit.getDefaultToolkit().getImage(Tray.class.getResource("/de/uulm/presenter/res/TrayIcongreen.png"));
+	private final Image trayimgred = Toolkit.getDefaultToolkit().getImage(Tray.class.getResource("/de/uulm/presenter/res/TrayIconred.png"));
+	private final Image trayimgyellow = Toolkit.getDefaultToolkit().getImage(Tray.class.getResource("/de/uulm/presenter/res/TrayIconyellow.png"));
 	private final TrayIcon trayIcon = new TrayIcon(trayimgred,"presenter");
 	private final PopupMenu menu;
 	private final Control control;

@@ -33,7 +33,7 @@ public class MessagePrompt extends JFrame implements ActionListener{
 	private final JButton no;
 	private boolean yes=false;
 	private static final MessagePrompt instance = new MessagePrompt();
-	
+	private Object rlock = new Object(); 
 	public static final MessagePrompt getInstance(){
 		return instance;
 	}
@@ -48,6 +48,9 @@ public class MessagePrompt extends JFrame implements ActionListener{
 		mainInfo.setWrapStyleWord(true);
 		mainInfo.setLineWrap(true);
 		mainInfo.setBackground(new Color(1,true));
+		mainInfo.setEditable(false);
+		mainInfo.setForeground(Color.BLACK);
+		
 		setTitle("Presenter");
 		setResizable(false);
 		setSize(10*UNIT, 5*UNIT);
@@ -59,7 +62,11 @@ public class MessagePrompt extends JFrame implements ActionListener{
 		addWindowListener(new WindowAdapter() {
 			
 			public void windowClosing(WindowEvent e) {
-				MessagePrompt.getInstance().setVisible(false);
+				synchronized(rlock){
+					MessagePrompt.getInstance().setVisible(false);
+					rlock.notifyAll();	
+				}
+				
 			};
 				
 			
@@ -101,17 +108,22 @@ public class MessagePrompt extends JFrame implements ActionListener{
 		
 	}
 	
-	public synchronized boolean showAskMessage(String message,String head,String yes, String no){
-		ok.setText(yes);
-		this.no.setText(no);
+	public  boolean showAskMessage(String message,String head,String yes, String no){
+		synchronized (rlock) {
+			
 		
-		showConfirmMessage(message,head);
-		this.no.setVisible(true);
-		ok.setVisible(true);
-		try {
-			this.wait();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+			ok.setText(yes);
+			this.no.setText(no);
+			
+			showConfirmMessage(message,head);
+			this.no.setVisible(true);
+			ok.setVisible(true);
+			repaint();
+			try {
+				rlock.wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		return this.yes;
 	}
@@ -146,24 +158,37 @@ public class MessagePrompt extends JFrame implements ActionListener{
 	
 	
 	
+	@Override
+	public void setVisible(boolean b) {
 	
+		super.setVisible(b);
+		if(!b){
+			synchronized (rlock) {
+				rlock.notifyAll();
+			}
+		}
+	}
 	
 
 	@Override
-	public synchronized void  actionPerformed(ActionEvent e) {
-		if (no.isVisible()){
-			yes = (e.getSource() == ok);
-		}else{
-			yes = false;
-		}
-		this.notifyAll();
-		setVisible(false);
-		ok.setText("ok");
-		no.setText("no");
-		no.setVisible(false);
-		ok.setVisible(false);
+	public void  actionPerformed(ActionEvent e) {
+		
+			if (no.isVisible()){
+				yes = (e.getSource() == ok);
+			}else{
+				yes = false;
+			}
+			
+			setVisible(false);
+			ok.setText("ok");
+			no.setText("no");
+			no.setVisible(false);
+			ok.setVisible(false);	
+		
 		
 	}
 
-	
+	public static void main(String[] args) {
+		MessagePrompt.getInstance().showAskMessage("ask", "head", "yes", "no");
+	}
 }
